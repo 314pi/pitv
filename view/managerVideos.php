@@ -1,5 +1,6 @@
 <?php
 require_once '../videos/configuration.php';
+require_once '../view/include/pitv.php';
 require_once $global['systemRootPath'] . 'objects/user.php';
 if (!User::canUpload()) {
     header("Location: {$global['webSiteRootURL']}?error=" . __("You can not manage videos"));
@@ -111,6 +112,18 @@ if (!empty($_GET['video_id'])) {
                     <?php
                 }
                 ?>
+<!-- pilikeyou -->
+				<small class="text-muted clearfix"> Dailymotion Mass Uploader </small>
+				<form method="post" >
+					<input type="text" id="channelid" name="channelid" placeholder="pilikeyou">
+					<input class="btn btn-danger" type="submit" name="piupdate" id="piupdate" value="Embed" />
+				</form>
+				<?php
+				if(array_key_exists('piupdate',$_POST)){
+						piupdate();
+					}
+				?>
+<!-- pilikeyou -->
             </div>
             <small class="text-muted clearfix">
                 <?php
