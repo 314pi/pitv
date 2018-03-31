@@ -561,7 +561,7 @@ if (!empty($videos)) {
                                 }
                                 var $h1 = $("#mainVideo<?php echo $video['id']; ?>");
                                 var window_offset = $h1.offset().top - $(window).scrollTop();
-                                if (window_offset > 50 && window_offset < 100) {
+                                if (window_offset < 300) {
                                     isLoaded<?php echo $video['id']; ?> = true;
                                     load(<?php echo $_GET['page'] + 1; ?>);
                                 }
