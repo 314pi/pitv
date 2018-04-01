@@ -32,7 +32,8 @@ $videos = Video::getAllVideos("viewableNotAd");
 foreach ($videos as $key => $value) {
     $videos[$key] = Video::getVideo($value['id']);
     $name = empty($value['name']) ? $value['user'] : $value['name'];
-    $videos[$key]['creator'] = '<div class="pull-left"><img src="' . User::getPhoto($value['users_id']) . '" alt="" class="img img-responsive img-circle" style="max-width: 50px;"/></div><div class="commentDetails" style="margin-left:60px;"><div class="commenterName"><strong><a href="' . $global['webSiteRootURL'] . 'channel/' . $value['users_id'] . '/">' . $name . '</a></strong><br><span class="text-muted">' . humanTiming(strtotime($value['videoCreation'])) . '</span></div></div>';
+	$videos[$key]['creator'] = '';
+    // $videos[$key]['creator'] = '<div class="pull-left"><img src="' . User::getPhoto($value['users_id']) . '" alt="" class="img img-responsive img-circle" style="max-width: 50px;"/></div><div class="commentDetails" style="margin-left:60px;"><div class="commenterName"><strong><a href="' . $global['webSiteRootURL'] . 'channel/' . $value['users_id'] . '/">' . $name . '</a></strong><br><span class="text-muted">' . humanTiming(strtotime($value['videoCreation'])) . '</span></div></div>';
 }
 $count = 0;
 if (!empty($videos)) {
@@ -111,25 +112,25 @@ if (!empty($videos)) {
                 </div>
                 <!-- all the stuffs here -->
 
-                <?php echo Subscribe::getButton($video['users_id']); ?>
+                <!-- <?php echo Subscribe::getButton($video['users_id']); ?> -->
                 <?php
                 if (!empty($video['id'])) {
                     $video['tags'] = Video::getTags($video['id']);
                 } else {
                     $video['tags'] = array();
                 }
-                foreach ($video['tags'] as $value) {
+                /* foreach ($video['tags'] as $value) {
                     if ($value->label === __("Group")) {
                         ?>
                         <span class="label label-<?php echo $value->type; ?>"><?php echo $value->text; ?></span>
                         <?php
                     }
-                }
+                } */
                 ?>
 
                 <span class="watch-view-count pull-right text-muted" itemprop="interactionCount"><?php echo number_format($video['views_count'], 0); ?> <?php echo __("Views"); ?></span>
 
-                <div class="row">
+                <!-- <div class="row">
                     <div class="col-md-12 col-lg-12 watch8-action-buttons text-muted">
                         <button class="btn btn-default no-outline" id="addBtn<?php echo $video['id']; ?>" data-placement="bottom">
                             <span class="fa fa-plus"></span> <?php echo __("Add to"); ?>
@@ -313,7 +314,7 @@ if (!empty($videos)) {
                             });
                         </script>
                     </div>
-                </div>
+                </div> -->
                 <div class="row bgWhite list-group-item" id="shareDiv<?php echo $video['id']; ?>">
                     <div class="tabbable-panel">
                         <div class="tabbable-line text-muted">
@@ -561,7 +562,7 @@ if (!empty($videos)) {
                                 }
                                 var $h1 = $("#mainVideo<?php echo $video['id']; ?>");
                                 var window_offset = $h1.offset().top - $(window).scrollTop();
-                                if (window_offset < 300) {
+                                if (window_offset < 100) {
                                     isLoaded<?php echo $video['id']; ?> = true;
                                     load(<?php echo $_GET['page'] + 1; ?>);
                                 }
